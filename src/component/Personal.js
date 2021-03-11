@@ -53,7 +53,7 @@ function Personal() {
             icon: 'success',
             title: 'Your Personal Info has been Saved',
             showConfirmButton: false,
-            timer: 1000000
+            timer: 1000
           });
           window.location = "/";
       
