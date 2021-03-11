@@ -40,7 +40,7 @@ function Personal() {
     form_data.append('budget', budget);
     form_data.append('about', about);
     form_data.append('images', images, images.name);
-    let url = 'https://djangotestting.herokuapp.com/api/';
+    let url = 'https://djangorestt.herokuapp.com/api/';
     axios.post(url, form_data, {
       headers: {
         'content-type': 'multipart/form-data'
@@ -55,7 +55,7 @@ function Personal() {
             showConfirmButton: false,
             timer: 1000000
           });
-        
+          window.location = "/";
       
         })
         .catch(err => console.log(err))
