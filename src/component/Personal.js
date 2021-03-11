@@ -55,7 +55,7 @@ function Personal() {
             showConfirmButton: false,
             timer: 1000000
           });
-          window.location = "http://localhost:3000/";
+          window.location = "https://frontendtes.herokuapp.com/";
       
         })
         .catch(err => console.log(err))
