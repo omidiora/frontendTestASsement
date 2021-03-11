@@ -55,7 +55,7 @@ function Personal() {
             showConfirmButton: false,
             timer: 1000000
           });
-          window.location = "/";
+        
       
         })
         .catch(err => console.log(err))
