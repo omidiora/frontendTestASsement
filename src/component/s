@@ -1,0 +1,189 @@
+import React, { useState, useContext } from 'react';
+import classnames from 'classnames';
+import axios from 'axios';
+import  '../App.css';
+import Swal from 'sweetalert2';
+import { MDBIcon} from 'mdbreact';
+
+
+
+
+const SignUp = ({ signUp }) => {
+  const [name, setname] = useState('');
+  const [contact, setContact] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [confPassword, setconfPassword] = useState('');
+  const [nameErr, setnameErr] = useState('');
+  const [emailErr, setemailErr] = useState('');
+  const [passwordErr, setpasswordErr] = useState('');
+  const [confPasswordErr, setconfPasswordErr] = useState('');
+
+  const handleChange = (e, name) => {
+    const user = {};
+    const emailRegEx = RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    user[name] = e.target.value;
+    // validations
+    switch (name) {
+      case 'name':
+        setname(user.name);
+        user.name.length < 3 ? setnameErr('Name must be at least 3 characters!') : setnameErr('');
+        break;
+     case 'contact':
+          setContact(user.contact);
+          user.contact.length < 3 ? setnameErr('Contact Field must be at least 4 characters!') : setnameErr('');
+          break;
+      case 'email':
+        setemail(user.email);
+        !emailRegEx.test(user.email) ? setemailErr('Invalid Email!') : setemailErr('');
+        break;
+      case 'password':
+        setpassword(user.password);
+        user.password.length < 8 ? setpasswordErr('Password must be at least 8 characters!') : setpasswordErr('');
+        break;
+      case 'confPassword':
+        setconfPassword(user.confPassword);
+        user.confPassword !== password ? setconfPasswordErr('Passwords do not match!') : setconfPasswordErr('');
+        break;
+      default:
+        break;
+    }
+  }
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (name && email && password && confPassword) {
+      let form_data = new FormData();
+      form_data.append('firstname', name);
+      form_data.append('lastname', contact);
+      // form_data.append('email', email);
+      // form_data.append('contact', contact);
+      // form_data.append('company', company);
+      // form_data.append('interested',interested);
+      // form_data.append('budget', budget);
+      // form_data.append('about', about);
+      // form_data.append('images', images, images.name);
+
+      let url = 'https://djangorestt.herokuapp.com/api/';
+      axios.post(url, form_data, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      })
+          .then(res => {
+          
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your Personal Info has been Saved',
+              showConfirmButton: false,
+              timer: 5000
+            });
+            window.location = "/";
+        
+          })
+          .catch(err => console.log(err))
+  
+  
+    }
+  }
+  
+  return (
+    <>
+        <h2 className="text-center">Create an Account</h2>
+        
+        <form className="mt-4" onSubmit={handleSignUp}>
+      
+  <div className="form-row">
+    <div className="col">
+      <input type="text"  className={classnames(
+        "form-control",
+        { 'is-invalid': nameErr, 'is-valid': !nameErr && name.length }
+      )}
+      id="name"
+      placeholder="Full Name"
+      onChange={(e) => handleChange(e, 'name')} placeholder="First name" />
+    </div>
+     {nameErr && <small className="text-danger">{nameErr}</small>}
+
+
+      <div className="col">
+      <input type="text"  className={classnames(
+        "form-control",
+        { 'is-invalid': nameErr, 'is-valid': !nameErr && name.length }
+      )}
+      id="name"
+      placeholder="Lastname Name"
+      onChange={(e) => handleChange(e, 'name')} placeholder="First name" />
+    </div>
+     {nameErr && <small className="text-danger">{nameErr}</small>}
+
+    </div>
+
+
+
+
+    <div className="form-row">
+    <div className="col">
+      <input type="text" type="email"
+      name="email"
+      className={classnames(
+        "form-control",
+        { 'is-invalid': emailErr, 'is-valid': !emailErr && email.length }
+      )}
+      id="email"
+      placeholder="Email Address"
+      onChange={(e) => handleChange(e, 'email')}
+    />
+    {emailErr && <small className="text-danger">{emailErr}</small>}
+  </div>
+        
+
+      <div className="col">
+      <input type="text" name='contact' className={classnames(
+        "form-control",
+        { 'is-invalid': nameErr, 'is-valid': !nameErr && contact.length }
+      )}
+      id="name"
+      placeholder="Contact"
+      onChange={(e) => handleChange(e, 'contact')}/>
+    </div>
+     {nameErr && <small className="text-danger">{nameErr}</small>}
+
+    </div>
+
+
+
+{/* Requirement */}
+
+    <div className='container-fluid  sample-color mt-4' >
+            <span> <MDBIcon far icon="save " /> Requirements </span>
+          </div>
+
+
+          <div className="col">
+      <input type="text" name='contact' className={classnames(
+        "form-control",
+        { 'is-invalid': nameErr, 'is-valid': !nameErr && contact.length }
+      )}
+      id="name"
+      placeholder="Contact"
+      onChange={(e) => handleChange(e, 'contact')}/>
+    </div>
+     {nameErr && <small className="text-danger">{nameErr}</small>}
+
+  
+
+
+     <input type="submit" className="btn btn-primary" value="Sign Up"/>
+
+</form>
+
+    
+    </>
+  )
+}
+
+export default SignUp
