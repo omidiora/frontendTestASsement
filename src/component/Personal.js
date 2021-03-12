@@ -8,11 +8,14 @@ import 'mdbreact/dist/css/mdb.css';
 import axios from 'axios';
 import  '../App.css';
 import Swal from 'sweetalert2';
+import LoadingOverlay from 'react-loading-overlay';
+import Loader from "react-loader-spinner";
 
 
 
 
-function Personal() {
+
+function Personal(isActive) {
 
 
   const [firstname, setFirstname] = useState("");
@@ -25,6 +28,7 @@ function Personal() {
   const [about, setAbout] = useState("");
   const [images, setImage] = useState(null);
   var [error, setError] = useState(null);
+   const [loading, setLoading] = useState(false);
 
  
 
@@ -38,7 +42,7 @@ document.getElementById('demo')
 
   const handleSubmit = (e )=> {
 
-
+    setLoading(true);
     e.preventDefault();
 
     if(firstname== '' || firstname < 3){
@@ -100,6 +104,7 @@ document.getElementById('demo')
       }
     })
         .then(res => {
+          
         
           Swal.fire({
             position: 'top-end',
@@ -108,6 +113,7 @@ document.getElementById('demo')
             showConfirmButton: true,
            
           });
+         
           window.location = "/";
       
         })
@@ -235,8 +241,15 @@ document.getElementById('demo')
 
 
 
-          <Button variant="outline-warning" href="/" >Cancel</Button>{' '}
-          <Button variant="outline-primary" type='submit'>Save</Button>{' '}
+          <Button variant="outline-primary" href="/" >Cancel</Button>{' '}
+        {loading ?  <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        className='loads'
+       
+      /> :   <Button variant="outline-warning"  type='submit'>Save</Button>}
         </Form>
       </div>
 
