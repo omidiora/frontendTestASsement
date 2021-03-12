@@ -9,13 +9,11 @@ import axios from 'axios';
 import  '../App.css';
 import Swal from 'sweetalert2';
 import LoadingOverlay from 'react-loading-overlay';
-import Loader from "react-loader-spinner";
 
 
 
 
-
-function Personal(isActive) {
+function Personal() {
 
 
   const [firstname, setFirstname] = useState("");
@@ -28,7 +26,7 @@ function Personal(isActive) {
   const [about, setAbout] = useState("");
   const [images, setImage] = useState(null);
   var [error, setError] = useState(null);
-   const [loading, setLoading] = useState(false);
+   [lconstoading, setLoading] = useState(false);
 
  
 
@@ -42,7 +40,7 @@ document.getElementById('demo')
 
   const handleSubmit = (e )=> {
 
-    setLoading(true);
+
     e.preventDefault();
 
     if(firstname== '' || firstname < 3){
@@ -113,7 +111,7 @@ document.getElementById('demo')
             showConfirmButton: true,
            
           });
-         
+          setLoading(true);
           window.location = "/";
       
         })
@@ -241,15 +239,8 @@ document.getElementById('demo')
 
 
 
-          <Button variant="outline-primary" href="/" >Cancel</Button>{' '}
-        {loading ?  <Loader
-        type="Puff"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        className='loads'
-       
-      /> :   <Button variant="outline-warning"  type='submit'>Save</Button>}
+          <Button variant="outline-warning" href="/" >Cancel</Button>{' '}
+          <Button variant="outline-primary" type='submit'>Save</Button>{' '}
         </Form>
       </div>
 
