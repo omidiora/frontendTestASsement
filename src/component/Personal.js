@@ -26,7 +26,6 @@ function Personal() {
   const [about, setAbout] = useState("");
   const [images, setImage] = useState(null);
   var [error, setError] = useState(null);
-   [lconstoading, setLoading] = useState(false);
 
  
 
@@ -111,7 +110,6 @@ document.getElementById('demo')
             showConfirmButton: true,
            
           });
-          setLoading(true);
           window.location = "/";
       
         })
